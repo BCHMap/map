@@ -1,7 +1,1 @@
- with open(local_path, 'r', encoding='iso-8859-1') as f:
-with open(local_path, 'r', encoding='iso-8859-1') as f:
-with open(local_path, 'r', encoding='iso-8859-1') as f:
-with open(local_path, 'r', encoding='iso-8859-1') as f:
-with open(local_path, 'r', encoding='iso-8859-1') as f:
-with open(local_path, 'r', encoding='iso-8859-1') as f:
-
+test
