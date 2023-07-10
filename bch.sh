@@ -46,14 +46,12 @@ def check_bch_balance():
 def calculate_fill_ratio(balance):
     max_balance = 0.001
     fill_ratio = min((balance / max_balance) * 100, 100) if max_balance != 0 else 0
+    fill_ratio = round(fill_ratio, 3)  # Zaokrąglenie do trzech miejsc po przecinku
     return fill_ratio
 
 def generate_map(fill_ratio):
-    # Współrzędne GPS z pliku config.ini
-    GPS_coordinates = (LATITUDE, LONGITUDE)
-
     # Współrzędne losowego punktu wewnątrz koła
-    max_radius_km = 1.0  # Maksymalny promień koła w kilometrach
+    max_radius_km = 3.0  # Maksymalny promień koła w kilometrach
     min_radius_km = 0.003  # Minimalny promień koła w kilometrach
     radius_km = (100 - fill_ratio) / 100 * (max_radius_km - min_radius_km) + min_radius_km
     random_radius = random.uniform(0, radius_km)
@@ -65,7 +63,7 @@ def generate_map(fill_ratio):
     radius_m = radius_km * 1000
 
     # Tworzenie obiektu mapy
-    map = folium.Map(location=GPS_coordinates, zoom_start=12)
+    map = folium.Map(location=(random_latitude, random_longitude), zoom_start=12)
 
     # Dodawanie warstwy satelitarnej OpenStreetMap
     folium.TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', name='Satellite', attr='ESRI').add_to(map)
@@ -92,6 +90,14 @@ def read_config():
     config.read(CONFIG_FILE)
     adres_skrytki = config.get('Settings', 'ADRES_SKRYTKI')
 
+    balance = check_bch_balance()
+    if balance is not None:
+        fill_ratio = calculate_fill_ratio(balance)
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{current_time}] Current BCH balance: {balance} BCH")
+        print(f"[{current_time}] Fill Ratio: {fill_ratio:.3f}%")
+        generate_map(fill_ratio)
+
     # Funkcja do kopiowania adresu do schowka
     def copy_to_clipboard(text):
         r = Tk()
@@ -108,28 +114,46 @@ def read_config():
     <head>
         <title>Mapa z informacjami</title>
         <style>
-            /* Ustawienie podziału strony na dwie połowy */
+            /* Styl podstawowy dla obu wersji */
             body {{
-                display: flex;
-                flex-direction: row;
-                height: 100vh;
                 margin: 0;
                 padding: 0;
             }}
 
-            /* Styl dla lewej połowy (mapy) */
-            #map-container {{
-                width: 66.66%; /* 2/3 szerokości strony */
-                height: 100%;
+            /* Styl dla wersji na komputery */
+            @media (min-width: 768px) {{
+                body {{
+                    display: flex;
+                    flex-direction: row;
+                    height: 100vh;
+                }}
+
+                #map-container {{
+                    width: 66.66%; /* 2/3 szerokości strony */
+                }}
+
+                #info-container {{
+                    width: 33.33%; /* 1/3 szerokości strony */
+                    overflow-y: auto;
+                    background-color: #f5f5f5;
+                    padding: 20px;
+                }}
             }}
 
-            /* Styl dla prawej połowy (informacje) */
-            #info-container {{
-                width: 33.33%; /* 1/3 szerokości strony */
-                height: 100%;
-                overflow-y: auto;
-                background-color: #f5f5f5;
-                padding: 20px;
+            /* Styl dla wersji na urządzenia mobilne */
+            @media (max-width: 767px) {{
+                body {{
+                    display: flex;
+                    flex-direction: column;
+                }}
+
+                #map-container {{
+                    height: 50vh;
+                }}
+
+                #info-container {{
+                    height: 50vh;
+                }}
             }}
         </style>
         <script>
@@ -151,22 +175,24 @@ def read_config():
             <p>
                 1) bla bla bla bla bla <br>
                 2) bla bla bla bla bla <br>
-                3) bla bla bla bla bla <br>
+                3) bla bla bla bla bla <br>              
                 4) bla bla bla bla bla <br>
                 5) bla bla bla bla bla <br>
                 6) bla bla bla bla bla <br>
+
             </p>
             <a href="https://www.example.com">Przykładowy link1</a><br>
             <a href="https://www.example.com">Przykładowy link2</a><br>
             
             <div>
-                
-<div style="text-align: center;">
-                <p><strong>Adres skrytki: <br><br></strong><span id="address">{adres_skrytki}</span><br>
-                <button onclick="copyAddressToClipboard()">Kopiuj adres do schowka</button><br><br>
-                <img src="qrcode.png" alt="QR Code" style="width: 200px; height: 200px;"><br></p> 
-</div>
-
+                <div style="text-align: center;">
+                    <p><strong>Adres skrytki: <br><br></strong><span id="address">{adres_skrytki}</span><br>
+                    <button onclick="copyAddressToClipboard()">Kopiuj adres do schowka</button><br><br>
+                    <img src="qrcode.png" alt="QR Code" style="width: 200px; height: 200px;"><br></p> 
+                    <p style="text-align: center;">Wartość skrytki: {balance} BCH</p>
+                    <p style="text-align: center;">Współczynnik wypełnienia skrytki: {fill_ratio:.3f}%</p>
+                    
+                </div>
             </div>
         </div>
     </body>
@@ -186,17 +212,11 @@ def read_config():
     qr_img.save("qrcode.png")
 
     # Zapisywanie zawartości pliku HTML
-    with open('mapa_z_informacjami.html', 'w') as file:
+    with open('index.html', 'w') as file:
         file.write(html_content)
 
 while True:
     read_config()
-    balance = check_bch_balance()
-    if balance is not None:
-        fill_ratio = calculate_fill_ratio(balance)
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"[{current_time}] Current BCH balance: {balance} BCH")
-        print(f"[{current_time}] Fill Ratio: {fill_ratio}%")
-        generate_map(fill_ratio)
     time.sleep(10)
+
 
