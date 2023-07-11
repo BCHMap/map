@@ -34,6 +34,9 @@
                 navigator.clipboard.writeText(address);
                 alert("Address copied to clipboard!");
             }
+            setTimeout(function() {
+                location.reload();
+            }, 60000); // Odświeżanie co minutę
         </script>
     </head>
     <body>
