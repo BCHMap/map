@@ -33,42 +33,13 @@
 
             /* Styl dla wewnętrznego kontenera informacji */
             #info-content {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
                 background-color: rgba(255, 255, 255, 0.8);
                 padding: 20px;
-                text-align: center;
-            }
-
-            #info-content h1,
-            #info-content p,
-            #info-content a,
-            #info-content button,
-            #info-content img {
-                margin: 10px;
-                color: black;
-            }
-
-            #info-content a {
-                color: #ffcc00;
-            }
-
-            #info-content button {
-                background-color: #ffcc00;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            #info-content button:hover {
-                background-color: #ffa500;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
             }
         </style>
         <script>
@@ -90,21 +61,23 @@
         <div id="info-container">
             <!-- Tutaj umieść swoje informacje, linki, grafiki, etc. -->
             <div id="info-content">
-                <h1 style="font-size: 14px;">INFORMACJE I ZASADY:</h1>
+                <h1 style="text-align: center; font-size: 14px;">INFORMACJE I ZASADY:</h1>
                 <p>
                     1) bla bla bla bla bla <br>
                     2) bla bla bla bla bla <br>
                     3) bla bla bla bla bla <br>
                 </p>
 
-                <a href="https://www.example.com">Przykładowy link</a><br>
+                <a href="https://www.example.com">Przykładowy link1</a><br>
+                <a href="https://www.example.com">Przykładowy link2</a><br>
+                <a href="https://www.example.com">Przykładowy link3</a><br><br><br>
         
                 <div>
-                    <div>
+                    <div style="text-align: center;">
                         <p><strong>Adres skrytki: <br><br></strong><span id="address">bitcoincash:qqxpkj2lxvzehph33c5zawhpsskcdnn6tu95syuafv</span><br>
                         <button onclick="copyAddressToClipboard()">Kopiuj adres do schowka</button><br><br>
                         <img src="qrcode.png" alt="QR Code" style="width: 200px; height: 200px;"><br></p> 
-                        <p>Aktualna wartość skrytki:<br>0.0 BCH (0.000%)</p>
+                        <p style="text-align: center;">Aktualna wartość skrytki:<br>0.0 BCH (0.000%)</p>
                     </div>
                 </div>
             </div>
