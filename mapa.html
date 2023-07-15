@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_e9f4882ee06681af9c7839a8d48fe7f5 {
+                #map_451367cccf7f6cf0e32a37cbc5872e7d {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -39,16 +39,16 @@
 <body>
     
     
-            <div class="folium-map" id="map_e9f4882ee06681af9c7839a8d48fe7f5" ></div>
+            <div class="folium-map" id="map_451367cccf7f6cf0e32a37cbc5872e7d" ></div>
         
 </body>
 <script>
     
     
-            var map_e9f4882ee06681af9c7839a8d48fe7f5 = L.map(
-                "map_e9f4882ee06681af9c7839a8d48fe7f5",
+            var map_451367cccf7f6cf0e32a37cbc5872e7d = L.map(
+                "map_451367cccf7f6cf0e32a37cbc5872e7d",
                 {
-                    center: [50.70279906838656, 17.80439465885821],
+                    center: [50.70671400435218, 17.78537594691964],
                     crs: L.CRS.EPSG3857,
                     zoom: 12,
                     zoomControl: true,
@@ -60,38 +60,38 @@
 
         
     
-            var tile_layer_d9d6918f439e4132609ad2e36bcf9543 = L.tileLayer(
+            var tile_layer_04aa9a1db67e1f9a622bdf4711697245 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_e9f4882ee06681af9c7839a8d48fe7f5);
+            ).addTo(map_451367cccf7f6cf0e32a37cbc5872e7d);
         
     
-            var tile_layer_476966a5cc18f6a716d378adb1b19255 = L.tileLayer(
+            var tile_layer_868ab355346f4fc1d37f73984d408c2e = L.tileLayer(
                 "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
                 {"attribution": "ESRI", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_e9f4882ee06681af9c7839a8d48fe7f5);
+            ).addTo(map_451367cccf7f6cf0e32a37cbc5872e7d);
         
     
-            var circle_d4c394e2df093557beb5e819a148b8d8 = L.circle(
-                [50.70279906838656, 17.80439465885821],
+            var circle_a8082e6355fbe470183897a2d6eb6fe7 = L.circle(
+                [50.70671400435218, 17.78537594691964],
                 {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000.0, "stroke": true, "weight": 3}
-            ).addTo(map_e9f4882ee06681af9c7839a8d48fe7f5);
+            ).addTo(map_451367cccf7f6cf0e32a37cbc5872e7d);
         
     
-            var layer_control_183081b26d8610ffa6ff618271faa88f = {
+            var layer_control_3f8d3360582836de6a0f7c7d9226686c = {
                 base_layers : {
-                    "openstreetmap" : tile_layer_d9d6918f439e4132609ad2e36bcf9543,
-                    "Satellite" : tile_layer_476966a5cc18f6a716d378adb1b19255,
+                    "openstreetmap" : tile_layer_04aa9a1db67e1f9a622bdf4711697245,
+                    "Satellite" : tile_layer_868ab355346f4fc1d37f73984d408c2e,
                 },
                 overlays :  {
                 },
             };
             L.control.layers(
-                layer_control_183081b26d8610ffa6ff618271faa88f.base_layers,
-                layer_control_183081b26d8610ffa6ff618271faa88f.overlays,
+                layer_control_3f8d3360582836de6a0f7c7d9226686c.base_layers,
+                layer_control_3f8d3360582836de6a0f7c7d9226686c.overlays,
                 {"autoZIndex": true, "collapsed": true, "position": "topright"}
-            ).addTo(map_e9f4882ee06681af9c7839a8d48fe7f5);
-            tile_layer_476966a5cc18f6a716d378adb1b19255.remove();
+            ).addTo(map_451367cccf7f6cf0e32a37cbc5872e7d);
+            tile_layer_868ab355346f4fc1d37f73984d408c2e.remove();
         
 </script>
 </html>
